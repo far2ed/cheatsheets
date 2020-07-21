@@ -1,0 +1,5 @@
+Metasploit set rhosts file
+
+Feed metasploit with a list of targets in a file:
+
+set rhosts file:/path/to/file
